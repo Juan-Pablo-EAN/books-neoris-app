@@ -1,0 +1,113 @@
+﻿@model BooksNeorisApp.DTOs.CreateAutorDto
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Autor";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-primary">
+                    <i class="bi bi-person-plus-fill"></i> Registrar Nuevo Autor
+                </h2>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-pencil-square"></i> Datos del Autor
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="NombreCompleto" class="form-label">
+                                <i class="bi bi-person"></i> Nombre Completo <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="NombreCompleto"
+                                   class="form-control"
+                                   placeholder="Ingrese el nombre completo del autor"
+                                   maxlength="200"
+                                   required />
+                            <span asp-validation-for="NombreCompleto" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="FechaNacimiento" class="form-label">
+                                <i class="bi bi-calendar-event"></i> Fecha de Nacimiento <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="FechaNacimiento"
+                                   type="date"
+                                   class="form-control"
+                                   max="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                   required />
+                            <span asp-validation-for="FechaNacimiento" class="text-danger small"></span>
+                            <small class="form-text text-muted">
+                                <i class="bi bi-info-circle"></i> Seleccione la fecha de nacimiento del autor
+                            </small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CiudadProcedencia" class="form-label">
+                                <i class="bi bi-geo-alt"></i> Ciudad de Procedencia <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="CiudadProcedencia"
+                                   class="form-control"
+                                   placeholder="Ingrese la ciudad de procedencia"
+                                   maxlength="100"
+                                   required />
+                            <span asp-validation-for="CiudadProcedencia" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="CorreoElectronico" class="form-label">
+                                <i class="bi bi-envelope"></i> Correo Electrónico <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="CorreoElectronico"
+                                   type="email"
+                                   class="form-control"
+                                   placeholder="ejemplo@correo.com"
+                                   maxlength="100"
+                                   required />
+                            <span asp-validation-for="CorreoElectronico" class="text-danger small"></span>
+                            <small class="form-text text-muted">
+                                <i class="bi bi-info-circle"></i> Debe ser una dirección de correo válida
+                            </small>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="bi bi-asterisk text-danger"></i>
+                            <strong>Nota:</strong> Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Guardar Autor
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

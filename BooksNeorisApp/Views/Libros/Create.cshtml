@@ -1,0 +1,154 @@
+﻿@model BooksNeorisApp.DTOs.CreateLibroDto
+
+@{
+    ViewData["Title"] = "Registrar Nuevo Libro";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-primary">
+                    <i class="bi bi-book"></i> Registrar Nuevo Libro
+                </h2>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver al Listado
+                </a>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        <i class="bi bi-pencil-square"></i> Datos del Libro
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Titulo" class="form-label">
+                                <i class="bi bi-book"></i> Título <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="Titulo"
+                                   class="form-control"
+                                   placeholder="Ingrese el título del libro"
+                                   maxlength="200"
+                                   required />
+                            <span asp-validation-for="Titulo" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Año" class="form-label">
+                                    <i class="bi bi-calendar3"></i> Año de Publicación <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="Año"
+                                       type="number"
+                                       class="form-control"
+                                       placeholder="Ej: 2024"
+                                       min="1000"
+                                       max="@DateTime.Now.Year"
+                                       required />
+                                <span asp-validation-for="Año" class="text-danger small"></span>
+                                <small class="form-text text-muted">
+                                    <i class="bi bi-info-circle"></i> Año entre 1000 y @DateTime.Now.Year
+                                </small>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="NumeroDePaginas" class="form-label">
+                                    <i class="bi bi-file-earmark-text"></i> Número de Páginas <span class="text-danger">*</span>
+                                </label>
+                                <input asp-for="NumeroDePaginas"
+                                       type="number"
+                                       class="form-control"
+                                       placeholder="Ej: 350"
+                                       min="1"
+                                       max="10000"
+                                       required />
+                                <span asp-validation-for="NumeroDePaginas" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Genero" class="form-label">
+                                <i class="bi bi-tag"></i> Género <span class="text-danger">*</span>
+                            </label>
+                            <select asp-for="Genero" class="form-select" required>
+                                <option value="">-- Seleccione un género --</option>
+                                <option value="Ficción">Ficción</option>
+                                <option value="No Ficción">No Ficción</option>
+                                <option value="Ciencia Ficción">Ciencia Ficción</option>
+                                <option value="Fantasía">Fantasía</option>
+                                <option value="Misterio">Misterio</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="Romance">Romance</option>
+                                <option value="Histórico">Histórico</option>
+                                <option value="Biografía">Biografía</option>
+                                <option value="Autoayuda">Autoayuda</option>
+                                <option value="Técnico">Técnico</option>
+                                <option value="Educativo">Educativo</option>
+                                <option value="Infantil">Infantil</option>
+                                <option value="Juvenil">Juvenil</option>
+                                <option value="Poesía">Poesía</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Aventura">Aventura</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <span asp-validation-for="Genero" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="NombreAutor" class="form-label">
+                                <i class="bi bi-person-badge"></i> Nombre del Autor <span class="text-danger">*</span>
+                            </label>
+                            <input asp-for="NombreAutor"
+                                   type="text"
+                                   class="form-control"
+                                   placeholder="Ingrese el nombre completo del autor"
+                                   maxlength="200"
+                                   required />
+                            <span asp-validation-for="NombreAutor" class="text-danger small"></span>
+                            <small class="form-text text-muted">
+                                <i class="bi bi-info-circle"></i> Ingrese el nombre completo del autor del libro
+                            </small>
+                        </div>
+
+                        <div class="alert alert-info" role="alert">
+                            <i class="bi bi-asterisk text-danger"></i>
+                            <strong>Nota:</strong> Todos los campos marcados con <span class="text-danger">*</span> son obligatorios.
+                        </div>
+
+                        <div class="alert alert-warning" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <strong>Importante:</strong> Existe un límite máximo de libros permitidos en el sistema.
+                            Si se alcanza el límite, no se podrán registrar más libros.
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary me-md-2">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-check-circle"></i> Guardar Libro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

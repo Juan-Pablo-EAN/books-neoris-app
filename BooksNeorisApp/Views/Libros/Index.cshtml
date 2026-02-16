@@ -1,0 +1,108 @@
+﻿@model IEnumerable<BooksNeorisApp.DTOs.LibroDto>
+
+@{
+    ViewData["Title"] = "Gestión de Libros";
+}
+
+<div class="container-fluid mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="text-primary">
+                    <i class="bi bi-book-fill"></i> Listado de Libros
+                </h2>
+                <div>
+                    <a asp-controller="Autores" asp-action="Index" class="btn btn-outline-primary me-2">
+                        <i class="bi bi-people"></i> Ver Autores
+                    </a>
+                    <a asp-action="Create" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Nuevo Libro
+                    </a>
+                </div>
+            </div>
+            <hr />
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> @TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th><i class="bi bi-book"></i> Título</th>
+                                <th><i class="bi bi-calendar3"></i> Año</th>
+                                <th><i class="bi bi-tag"></i> Género</th>
+                                <th><i class="bi bi-file-earmark-text"></i> Páginas</th>
+                                <th><i class="bi bi-person"></i> Autor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var libro in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <strong class="text-primary">@libro.Titulo</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info">@libro.Año</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">@libro.Genero</span>
+                                    </td>
+                                    <td>
+                                        <i class="bi bi-file-earmark-text text-muted"></i>
+                                        @libro.NumeroDePaginas pág.
+                                    </td>
+                                    <td>
+                                        <i class="bi bi-person-badge"></i>
+                                        @libro.NombreAutor
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-3 d-flex justify-content-between align-items-center">
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-info-circle"></i>
+                        Total de libros registrados: <strong class="text-primary">@Model.Count()</strong>
+                    </p>
+                    <a asp-action="Create" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Agregar Libro
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted"></i>
+                    <h4 class="mt-3 text-muted">No hay libros registrados</h4>
+                    <p class="text-muted">Comienza agregando un nuevo libro a tu biblioteca</p>
+                    <a asp-action="Create" class="btn btn-primary mt-2">
+                        <i class="bi bi-plus-circle"></i> Registrar Primer Libro
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

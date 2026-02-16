@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BooksNeorisApp/BooksNeorisApp.csproj" />
+  <Project Path="UnitTestProject/UnitTestProject.csproj" Id="838c3cc7-6604-4292-887d-0f4a6fd3330f" />
+</Solution>
